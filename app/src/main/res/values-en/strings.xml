@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ApplicationGithubUser</string>
+    <string name="user_name">user_name</string>
+    <string name="full_name">full_name</string>
+    <string name="name">name</string>
+    <string name="location">location</string>
+    <string name="company">Google</string>
+    <string name="repository">15</string>
+    <string name="search">search</string>
+
+
+    <string name="search_hint">Input some username</string>
+    <string name="followers_tab">Followers</string>
+    <string name="following_tab">Followings</string>
+    <string name="tab_followers">Followers</string>
+    <string name="tab_followings">Followings</string>
+    <string name="content_tab_text">Follow</string>
+    <string name="followers">Followers</string>
+    <string name="followings">Followings</string>
+    <string name="total_repositories">Total Repositories</string>
+    <string name="change_language_settings">Change Language Settings</string>
+
+
+</resources>
