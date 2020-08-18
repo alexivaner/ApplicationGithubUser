@@ -9,6 +9,9 @@ import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Compan
 import java.sql.SQLException
 
 class FavoritesHelper(context: Context) {
+    private var dataBaseHelper: DatabaseHelper = DatabaseHelper(context)
+    private lateinit var database: SQLiteDatabase
+
     companion object {
         private const val DATABASE_TABLE = TABLE_NAME
         private lateinit var dataBaseHelper: DatabaseHelper
@@ -17,8 +20,6 @@ class FavoritesHelper(context: Context) {
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: FavoritesHelper(context)
             }
-
-        private lateinit var database: SQLiteDatabase
 
 
     }
@@ -29,7 +30,7 @@ class FavoritesHelper(context: Context) {
     }
 
     fun close() {
-        dataBaseHelper.close()
+        Companion.dataBaseHelper.close()
         if (database.isOpen)
             database.close()
     }
@@ -42,9 +43,9 @@ class FavoritesHelper(context: Context) {
             null,
             null,
             null,
-            "$_ID ASC")
+            "$_ID ASC"
+        )
     }
-
 
 
     fun insert(values: ContentValues?): Long {

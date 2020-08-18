@@ -9,6 +9,7 @@ internal class DatabaseContract {
             const val TABLE_NAME = "favorite_user"
             val _ID = "_id"
             val COLUMN_NAME_USERNAME = "username"
+            val COLUMN_NAME_FULLNAME = "fullname"
             val COLUMN_NAME_AVATAR_URL= "avatar_url"
             val COLUMN_NAME_COMPANY="company"
             val COLUMN_NAME_LOCATION="location"

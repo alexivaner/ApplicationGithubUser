@@ -13,6 +13,7 @@ internal class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATA
         private val SQL_CREATE_TABLE_FAVORITES = "CREATE TABLE $TABLE_NAME" +
                 " (${DatabaseContract.UserColumnns._ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " ${DatabaseContract.UserColumnns.COLUMN_NAME_USERNAME} TEXT NOT NULL," +
+                " ${DatabaseContract.UserColumnns.COLUMN_NAME_FULLNAME} TEXT NOT NULL," +
                 " ${DatabaseContract.UserColumnns.COLUMN_NAME_AVATAR_URL} TEXT NOT NULL," +
                 " ${DatabaseContract.UserColumnns.COLUMN_NAME_COMPANY} TEXT NOT NULL," +
                 " ${DatabaseContract.UserColumnns.COLUMN_NAME_LOCATION} TEXT NOT NULL," +

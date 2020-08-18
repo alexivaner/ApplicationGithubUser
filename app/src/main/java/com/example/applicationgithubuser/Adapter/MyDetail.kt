@@ -1,11 +1,15 @@
 package com.example.applicationgithubuser.Adapter
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.applicationgithubuser.PagerAdapter.SectionsPagerAdapter
 import com.example.applicationgithubuser.R
+import com.example.applicationgithubuser.db.DatabaseContract
+import com.example.applicationgithubuser.db.DatabaseHelper
+import com.example.applicationgithubuser.db.FavoritesHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
@@ -16,6 +20,7 @@ import org.json.JSONObject
 
 
 class MyDetail : AppCompatActivity() {
+    private lateinit var favoriteHelper: FavoritesHelper
 
     companion object {
         const val EXTRA_USER = "extra_user"
@@ -26,6 +31,9 @@ class MyDetail : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail)
         var fab = findViewById(R.id.fab) as FloatingActionButton
+
+        favoriteHelper = FavoritesHelper.getInstance(applicationContext)
+        favoriteHelper.open()
 
         full_name.visibility = View.INVISIBLE
         company.visibility = View.INVISIBLE
@@ -60,7 +68,29 @@ class MyDetail : AppCompatActivity() {
         setStatusFavorite(statusFavorite)
         fab.setOnClickListener{
             statusFavorite=!statusFavorite
+            if (statusFavorite){
+                val values = ContentValues()
+                values.put(DatabaseContract.UserColumnns.COLUMN_NAME_USERNAME, user.username)
+                values.put(DatabaseContract.UserColumnns.COLUMN_NAME_FULLNAME, responseObject.getString("name"))
+                values.put(DatabaseContract.UserColumnns.COLUMN_NAME_AVATAR_URL, user.avatar)
+                values.put(DatabaseContract.UserColumnns.COLUMN_NAME_COMPANY, responseObject.getString("company"))
+                values.put(DatabaseContract.UserColumnns.COLUMN_NAME_FOLLOWERS, responseObject.getString("followers"))
+                values.put(DatabaseContract.UserColumnns.COLUMN_NAME_FOLLOWINGS,responseObject.getString("following"))
+                values.put(DatabaseContract.UserColumnns.COLUMN_NAME_LOCATION, responseObject.getString("location"))
+                values.put(DatabaseContract.UserColumnns.COLUMN_NAME_TOTALREPOSITORIES, responseObject.getString("public_repos"))
+                val result = favoriteHelper.insert(values)
+
+                if (result > 0) {
+                    Toast.makeText(this@MyDetail, "Sudah menambah data", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@MyDetail, "Gagal menambah data", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+
             setStatusFavorite(statusFavorite)
+
+
         }
 
     }
