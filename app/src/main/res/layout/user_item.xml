@@ -19,6 +19,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="@color/cardview_light_background"
         app:layout_constraintBottom_toBottomOf="@+id/avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/avatar"
@@ -34,6 +35,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
+        android:textColor="@color/cardview_light_background"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/avatar"
@@ -46,8 +48,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/avatar"
-        android:layout_width="86dp"
-        android:layout_height="81dp"
+        android:layout_width="75dp"
+        android:layout_height="61dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

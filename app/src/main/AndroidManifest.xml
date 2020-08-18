@@ -12,11 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MyDetail"
+            android:name=".Adapter.MyDetail"
             android:theme="@style/Detail" />
         <activity
-            android:name=".MainActivity"
-            android:configChanges="orientation|keyboardHidden">
+            android:name=".UI.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

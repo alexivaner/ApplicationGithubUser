@@ -1,4 +1,4 @@
-package com.example.applicationgithubuser
+package com.example.applicationgithubuser.PagerAdapter
 
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.applicationgithubuser.Adapter.MyAdapter
+import com.example.applicationgithubuser.R
+import com.example.applicationgithubuser.Adapter.UserGithub
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -76,7 +79,7 @@ class Followings : Fragment() {
         progressBar.visibility = View.VISIBLE
 
         val asyncClient = AsyncHttpClient()
-        asyncClient.addHeader("Authorization", "token token change with your token")
+        asyncClient.addHeader("Authorization", "token 2f94bde6f7c7fd89355467bc3eaa7d96f3808360")
         asyncClient.addHeader("User-Agent", "request")
         asyncClient.get(
             "https://api.github.com/users/$newText/following",
@@ -102,7 +105,8 @@ class Followings : Fragment() {
                             avatar = item.getString("avatar_url")
                             url = item.getString("url")
 
-                            val user = UserGithub()
+                            val user =
+                                UserGithub()
                             user.username = userName
                             user.userid = userId
                             user.avatar = avatar
@@ -143,7 +147,8 @@ class Followings : Fragment() {
     private fun showRecyclerList() {
 
         rvUser.layoutManager = LinearLayoutManager(activity)
-        listGithubUser = MyAdapter(users)
+        listGithubUser =
+            MyAdapter(users)
         rvUser.adapter = listGithubUser
 
     }
@@ -153,8 +158,9 @@ class Followings : Fragment() {
         private val ARG_USERNAME="username"
         private lateinit var responseObject:JSONObject
 
-        fun newInstance(username: String?):Followings{
-            val fragment=Followings()
+        fun newInstance(username: String?): Followings {
+            val fragment=
+                Followings()
             val bundle=Bundle()
             bundle.putString(ARG_USERNAME,username)
             fragment.arguments=bundle

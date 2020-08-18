@@ -6,20 +6,16 @@
     <string name="name">nama</string>
     <string name="location">lokasi</string>
     <string name="company">perusahaan</string>
-    <string name="repository">15</string>
     <string name="search">pencarian</string>
 
 
     <string name="search_hint">Masukkan username</string>
-    <string name="followers_tab">Pengikut</string>
-    <string name="following_tab">Mengikuti</string>
-    <string name="tab_followers">Pengikut</string>
-    <string name="tab_followings">Mengikuti</string>
-    <string name="content_tab_text">Ikuti</string>
     <string name="followers">Pengikut</string>
     <string name="followings">Mengikuti</string>
     <string name="total_repositories">Jumlah Repository</string>
     <string name="change_language_settings">Ubah bahasa</string>
-
+    <string name="change_settings">Favorit</string>
+    <string name="_2500350">2500350</string>
+    <string name="todo">TODO</string>
 
 </resources>

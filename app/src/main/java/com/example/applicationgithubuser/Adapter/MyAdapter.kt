@@ -1,4 +1,4 @@
-package com.example.applicationgithubuser
+package com.example.applicationgithubuser.Adapter
 
 import android.content.Context
 import android.content.Intent
@@ -9,7 +9,7 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import java.util.*
+import com.example.applicationgithubuser.R
 import kotlin.collections.ArrayList
 
 
@@ -17,6 +17,7 @@ class MyAdapter(private val listData: ArrayList<UserGithub>) :
     RecyclerView.Adapter<MyAdapter.ListViewHolder>(){
 
     var listDataFilter = ArrayList<UserGithub>()
+
 
     init {
         listDataFilter = listData

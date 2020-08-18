@@ -1,4 +1,4 @@
-package com.example.applicationgithubuser
+package com.example.applicationgithubuser.UI
 
 import android.app.SearchManager
 import android.content.Context
@@ -16,12 +16,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.applicationgithubuser.Adapter.MyAdapter
+import com.example.applicationgithubuser.Adapter.UserGithub
+import com.example.applicationgithubuser.R
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
-import java.lang.NullPointerException
 
 
 class MainActivity : AppCompatActivity() {
@@ -32,16 +34,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userId: String
     private lateinit var avatar: String
     private lateinit var url: String
-
+    private var mSearchQuery: String? = null
+    private var defaultText = "github"
     private var users = arrayListOf<UserGithub>()
     lateinit var listGithubUser: MyAdapter
 
     companion object {
-        internal const val defaultText = "alexivaner"
 
         private val TAG = MainActivity::class.java.simpleName
+        private const val STATE_RESULT = "state_result"
+
 
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,10 +59,13 @@ class MainActivity : AppCompatActivity() {
 
         rvUser = findViewById(R.id.main_layout)
         rvUser.setHasFixedSize(true)
+
+
         prepare(defaultText)
 
 
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
@@ -68,11 +76,14 @@ class MainActivity : AppCompatActivity() {
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView.queryHint = resources.getString(R.string.search_hint)
+
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             /*
             Gunakan method ini ketika search selesai atau OK
              */
             override fun onQueryTextSubmit(query: String): Boolean {
+                mSearchQuery = query;
                 Toast.makeText(this@MainActivity, query, Toast.LENGTH_SHORT).show()
                 prepare(query)
                 return true
@@ -82,6 +93,7 @@ class MainActivity : AppCompatActivity() {
             Gunakan method ini untuk merespon tiap perubahan huruf pada searchView
              */
             override fun onQueryTextChange(newText: String): Boolean {
+                mSearchQuery = newText;
                 cntr?.cancel()
                 cntr = object : CountDownTimer(waitingTime.toLong(), 500) {
                     override fun onTick(millisUntilFinished: Long) {
@@ -93,7 +105,7 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onFinish() {
                         Log.d("FINISHED", "DONE")
-                        if(newText.isNullOrEmpty()){
+                        if (newText.isNullOrEmpty()) {
                             prepare(defaultText)
                         }
                         prepare(newText)
@@ -107,7 +119,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_change_settings) {
+        if (item.itemId == R.id.action_change_language_settings) {
             val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
             startActivity(mIntent)
         }
@@ -118,7 +130,7 @@ class MainActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
 
         val asyncClient = AsyncHttpClient()
-        asyncClient.addHeader("Authorization", "token token change with your token")
+        asyncClient.addHeader("Authorization", "token 2f94bde6f7c7fd89355467bc3eaa7d96f3808360")
         asyncClient.addHeader("User-Agent", "request")
         asyncClient.get(
             "https://api.github.com/search/users?q=$newText",
@@ -145,11 +157,12 @@ class MainActivity : AppCompatActivity() {
                             avatar = item.getString("avatar_url")
                             url = item.getString("url")
 
-                            val user = UserGithub()
+                            val user =
+                                UserGithub()
                             user.username = userName
                             user.userid = userId
                             user.avatar = avatar
-                            user.url=url
+                            user.url = url
                             users.add(user)
                             showRecyclerList()
 
@@ -174,7 +187,7 @@ class MainActivity : AppCompatActivity() {
                         401 -> "$statusCode : Bad Request"
                         403 -> "$statusCode : Forbidden"
                         404 -> "$statusCode : Not Found"
-                        422 -> "Default will return my github alexivaner"
+                        422 -> "Default will return search github"
                         else -> "$statusCode : ${error.message}"
                     }
                     Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
@@ -186,7 +199,8 @@ class MainActivity : AppCompatActivity() {
     private fun showRecyclerList() {
 
         rvUser.layoutManager = LinearLayoutManager(this)
-        listGithubUser = MyAdapter(users)
+        listGithubUser =
+            MyAdapter(users)
         rvUser.adapter = listGithubUser
 
     }

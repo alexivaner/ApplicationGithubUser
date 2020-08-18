@@ -1,9 +1,12 @@
-package com.example.applicationgithubuser
+package com.example.applicationgithubuser.Adapter
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.applicationgithubuser.PagerAdapter.SectionsPagerAdapter
+import com.example.applicationgithubuser.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.squareup.picasso.Picasso
@@ -11,8 +14,8 @@ import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.detail.*
 import org.json.JSONObject
 
-class MyDetail : AppCompatActivity() {
 
+class MyDetail : AppCompatActivity() {
 
     companion object {
         const val EXTRA_USER = "extra_user"
@@ -22,9 +25,7 @@ class MyDetail : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail)
-
-
-
+        var fab = findViewById(R.id.fab) as FloatingActionButton
 
         full_name.visibility = View.INVISIBLE
         company.visibility = View.INVISIBLE
@@ -44,20 +45,45 @@ class MyDetail : AppCompatActivity() {
             .into(profile_picture)
         var url = user.url.toString()
         prepare(url)
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        val sectionsPagerAdapter =
+            SectionsPagerAdapter(
+                this,
+                supportFragmentManager
+            )
+
         sectionsPagerAdapter.username=user.username.toString()
         view_pager.adapter = sectionsPagerAdapter
         tabs.setupWithViewPager(view_pager)
         supportActionBar?.elevation = 0f
 
+        var statusFavorite=false
+        setStatusFavorite(statusFavorite)
+        fab.setOnClickListener{
+            statusFavorite=!statusFavorite
+            setStatusFavorite(statusFavorite)
+        }
 
     }
+
+    private fun setStatusFavorite(statusFavorite: Boolean){
+        if(statusFavorite){
+            fab.setImageResource(R.drawable.baseline_star_white_18dp)
+
+        }
+
+        else{
+            fab.setImageResource(R.drawable.baseline_star_border_white_18dp)
+
+        }
+
+    }
+
 
     private fun prepare(url: String) {
         progressBar.visibility = View.VISIBLE
 
         val asyncClient = AsyncHttpClient()
-        asyncClient.addHeader("Authorization", "token token change with your token")
+        asyncClient.addHeader("Authorization", "token 2f94bde6f7c7fd89355467bc3eaa7d96f3808360")
         asyncClient.addHeader("User-Agent", "request")
         asyncClient.get(
             url,
