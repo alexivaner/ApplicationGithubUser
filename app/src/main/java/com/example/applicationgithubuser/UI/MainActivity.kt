@@ -204,4 +204,7 @@ class MainActivity : AppCompatActivity() {
         rvUser.adapter = listGithubUser
 
     }
+
+
+
 }

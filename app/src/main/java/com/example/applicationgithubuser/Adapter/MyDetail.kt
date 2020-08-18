@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.applicationgithubuser.PagerAdapter.SectionsPagerAdapter
 import com.example.applicationgithubuser.R
 import com.example.applicationgithubuser.db.DatabaseContract
-import com.example.applicationgithubuser.db.DatabaseHelper
 import com.example.applicationgithubuser.db.FavoritesHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.loopj.android.http.AsyncHttpClient
@@ -21,6 +20,7 @@ import org.json.JSONObject
 
 class MyDetail : AppCompatActivity() {
     private lateinit var favoriteHelper: FavoritesHelper
+    private var statusFavorite: Boolean = false
 
     companion object {
         const val EXTRA_USER = "extra_user"
@@ -64,29 +64,47 @@ class MyDetail : AppCompatActivity() {
         tabs.setupWithViewPager(view_pager)
         supportActionBar?.elevation = 0f
 
-        var statusFavorite=false
+        val cursor = favoriteHelper.querybyUserID(user.userid)
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            statusFavorite=false
+        }else{
+            statusFavorite=true
+        }
+        cursor.close();
+
         setStatusFavorite(statusFavorite)
+
         fab.setOnClickListener{
             statusFavorite=!statusFavorite
             if (statusFavorite){
                 val values = ContentValues()
                 values.put(DatabaseContract.UserColumnns.COLUMN_NAME_USERNAME, user.username)
-                values.put(DatabaseContract.UserColumnns.COLUMN_NAME_FULLNAME, responseObject.getString("name"))
                 values.put(DatabaseContract.UserColumnns.COLUMN_NAME_AVATAR_URL, user.avatar)
-                values.put(DatabaseContract.UserColumnns.COLUMN_NAME_COMPANY, responseObject.getString("company"))
-                values.put(DatabaseContract.UserColumnns.COLUMN_NAME_FOLLOWERS, responseObject.getString("followers"))
-                values.put(DatabaseContract.UserColumnns.COLUMN_NAME_FOLLOWINGS,responseObject.getString("following"))
-                values.put(DatabaseContract.UserColumnns.COLUMN_NAME_LOCATION, responseObject.getString("location"))
-                values.put(DatabaseContract.UserColumnns.COLUMN_NAME_TOTALREPOSITORIES, responseObject.getString("public_repos"))
+                values.put(DatabaseContract.UserColumnns.COLUMN_USER_URL, user.url)
+                values.put(DatabaseContract.UserColumnns.COLUMN_NAME_USER_ID, user.userid)
                 val result = favoriteHelper.insert(values)
 
                 if (result > 0) {
-                    Toast.makeText(this@MyDetail, "Sudah menambah data", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this@MyDetail, "Gagal menambah data", Toast.LENGTH_SHORT).show()
-                }
-            }
+                    Toast.makeText(this@MyDetail, "Sudah menambah favorite", Toast.LENGTH_SHORT).show()
 
+                } else {
+                    Toast.makeText(this@MyDetail, "Gagal menambah favoritr", Toast.LENGTH_SHORT).show()
+
+                }
+            }else{
+                val delete = user.userid?.let { it1 -> favoriteHelper.deleteById(it1) }
+                if (delete != null) {
+                    if (delete  > 0) {
+                        Toast.makeText(this@MyDetail, "Sudah menghapus dari favorite", Toast.LENGTH_SHORT).show()
+
+                    } else {
+                        Toast.makeText(this@MyDetail, "Gagal menghapus dari favorite", Toast.LENGTH_SHORT).show()
+
+                    }
+                }
+
+            }
 
             setStatusFavorite(statusFavorite)
 
@@ -107,6 +125,7 @@ class MyDetail : AppCompatActivity() {
         }
 
     }
+
 
 
     private fun prepare(url: String) {

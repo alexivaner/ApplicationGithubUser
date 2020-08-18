@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.COLUMN_NAME_USER_ID
 import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.TABLE_NAME
 import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion._ID
 import java.sql.SQLException
@@ -48,13 +49,19 @@ class FavoritesHelper(context: Context) {
     }
 
 
+    fun querybyUserID(UserID: String?): Cursor {
+        val Query = "Select * from " + DATABASE_TABLE + " where " + COLUMN_NAME_USER_ID + " = " + UserID
+        return database.rawQuery(Query,null)
+    }
+
+
     fun insert(values: ContentValues?): Long {
         return database.insert(DATABASE_TABLE, null, values)
     }
 
 
-    fun deleteById(id: String): Int {
-        return database.delete(DATABASE_TABLE, "$_ID = '$id'", null)
+    fun deleteById(user_id: String): Int {
+        return database.delete(DATABASE_TABLE, "$COLUMN_NAME_USER_ID = '$user_id'", null)
     }
 
     init {
