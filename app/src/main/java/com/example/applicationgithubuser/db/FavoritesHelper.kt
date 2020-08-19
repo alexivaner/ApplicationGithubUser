@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.COLUMN_NAME_USERNAME
 import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.COLUMN_NAME_USER_ID
 import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.TABLE_NAME
 import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion._ID
@@ -46,6 +47,11 @@ class FavoritesHelper(context: Context) {
             null,
             "$_ID ASC"
         )
+    }
+
+    fun querybyUserName(UserName: String=""): Cursor {
+        val Query = "Select * from " + DATABASE_TABLE
+        return database.rawQuery(Query,null)
     }
 
 

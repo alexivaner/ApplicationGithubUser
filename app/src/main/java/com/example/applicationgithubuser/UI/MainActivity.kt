@@ -47,6 +47,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(STATE_RESULT, listGithubUser.listDataFilter)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,9 +63,22 @@ class MainActivity : AppCompatActivity() {
 
         rvUser = findViewById(R.id.main_layout)
         rvUser.setHasFixedSize(true)
+        rvUser.layoutManager = LinearLayoutManager(this)
+        listGithubUser =
+            MyAdapter(users)
+        rvUser.adapter = listGithubUser
 
 
-        prepare(defaultText)
+        if (savedInstanceState == null) {
+            prepare(defaultText)
+        } else {
+            val list = savedInstanceState.getParcelableArrayList<UserGithub>(STATE_RESULT)
+            if (list != null) {
+                listGithubUser.listDataFilter = list
+                progressBar.visibility = View.INVISIBLE
+
+            }
+        }
 
 
     }
@@ -122,6 +139,11 @@ class MainActivity : AppCompatActivity() {
         if (item.itemId == R.id.action_change_language_settings) {
             val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
             startActivity(mIntent)
+        }
+
+        if (item.itemId == R.id.action_change_settings) {
+            val moveIntent = Intent(this@MainActivity, Favorites::class.java)
+            startActivity(moveIntent)
         }
         return super.onOptionsItemSelected(item)
     }

@@ -14,7 +14,7 @@ import kotlin.collections.ArrayList
 
 
 class MyAdapter(private val listData: ArrayList<UserGithub>) :
-    RecyclerView.Adapter<MyAdapter.ListViewHolder>(){
+    RecyclerView.Adapter<MyAdapter.ListViewHolder>() {
 
     var listDataFilter = ArrayList<UserGithub>()
 
@@ -26,13 +26,13 @@ class MyAdapter(private val listData: ArrayList<UserGithub>) :
     private lateinit var context: Context
 
 
-
-
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ListViewHolder {
         context = viewGroup.context
         return ListViewHolder(
             LayoutInflater.from(context).inflate(R.layout.user_item, viewGroup, false)
+
         )
+
 
     }
 

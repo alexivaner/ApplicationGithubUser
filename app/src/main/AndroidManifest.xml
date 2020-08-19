@@ -11,13 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".UI.Favorites"></activity>
         <activity
             android:name=".Adapter.MyDetail"
             android:theme="@style/Detail" />
         <activity
-            android:name=".UI.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            >
+            android:name=".UI.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
