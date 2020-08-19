@@ -13,6 +13,7 @@ import java.sql.SQLException
 class FavoritesHelper(context: Context) {
     private var dataBaseHelper: DatabaseHelper = DatabaseHelper(context)
     private lateinit var database: SQLiteDatabase
+    private lateinit var query: String
 
     companion object {
         private const val DATABASE_TABLE = TABLE_NAME
@@ -37,21 +38,17 @@ class FavoritesHelper(context: Context) {
             database.close()
     }
 
-    fun queryAll(): Cursor {
-        return database.query(
-            DATABASE_TABLE,
-            null,
-            null,
-            null,
-            null,
-            null,
-            "$_ID ASC"
-        )
-    }
 
     fun querybyUserName(UserName: String=""): Cursor {
-        val Query = "Select * from " + DATABASE_TABLE
-        return database.rawQuery(Query,null)
+        if (UserName==""){
+            query = "Select * from " + DATABASE_TABLE
+            return database.rawQuery(query,null)
+
+        }else{
+            query = "Select * from $DATABASE_TABLE where $COLUMN_NAME_USERNAME like '%$UserName%'"
+            return database.rawQuery(query,null)
+        }
+
     }
 
 

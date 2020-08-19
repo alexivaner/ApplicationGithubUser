@@ -91,7 +91,6 @@ class Favorites : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String): Boolean {
                 mSearchQuery = query;
                 Toast.makeText(this@Favorites, query, Toast.LENGTH_SHORT).show()
-                prepare(query)
                 return true
             }
 
@@ -101,7 +100,7 @@ class Favorites : AppCompatActivity() {
             override fun onQueryTextChange(newText: String): Boolean {
                 mSearchQuery = newText;
                 cntr?.cancel()
-                cntr = object : CountDownTimer(waitingTime.toLong(), 500) {
+                cntr = object : CountDownTimer(waitingTime.toLong(), 20) {
                     override fun onTick(millisUntilFinished: Long) {
                         Log.d(
                             "TIME",
@@ -111,9 +110,6 @@ class Favorites : AppCompatActivity() {
 
                     override fun onFinish() {
                         Log.d("FINISHED", "DONE")
-                        if (newText.isNullOrEmpty()) {
-                            prepare(defaultText)
-                        }
                         prepare(newText)
                     }
                 }
