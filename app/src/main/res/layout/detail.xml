@@ -149,7 +149,7 @@
                 android:id="@+id/followers"
                 android:layout_width="56dp"
                 android:layout_height="16dp"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="@string/_2500350"
