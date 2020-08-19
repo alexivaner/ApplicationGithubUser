@@ -62,9 +62,29 @@ class Favorites : AppCompatActivity() {
         rvUser = findViewById(R.id.favorites_layout)
         rvUser.setHasFixedSize(true)
 
-        prepare(defaultText)
+        rvUser.layoutManager = LinearLayoutManager(this)
+        listGithubUser =
+            MyAdapter(users)
+        rvUser.adapter = listGithubUser
 
 
+        if (savedInstanceState == null) {
+            prepare(defaultText)
+        } else {
+            val list = savedInstanceState.getParcelableArrayList<UserGithub>(STATE_RESULT)
+            if (list != null) {
+                listGithubUser.listDataFilter = list
+                progressBar.visibility = View.INVISIBLE
+
+            }
+        }
+
+
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(STATE_RESULT, listGithubUser.listDataFilter)
     }
 
     override fun onResume() {

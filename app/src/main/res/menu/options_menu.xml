@@ -16,5 +16,7 @@
     <item
         android:id="@+id/action_change_settings"
         android:title="@string/change_settings"
-        app:showAsAction="never"/>
+        android:icon="@drawable/baseline_star_white_18dp"
+
+        app:showAsAction="collapseActionView|always" />
 </menu>
