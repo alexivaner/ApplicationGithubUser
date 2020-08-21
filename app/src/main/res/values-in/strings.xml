@@ -18,5 +18,9 @@
     <string name="_2500350">2500350</string>
     <string name="todo">TODO</string>
     <string name="back_to_main_menu">Kembali ke menu utama</string>
+    <string name="welcome_message">Hi, Selamat datang di Aplikasi Gihub buatan Ivan \n Silahkan gunakan fitur search</string>
+    <string name="dailyreminder">Atur pengingat harian</string>
+    <string name="nofavorites">Masih tidak ada favorites</string>
+
 
 </resources>

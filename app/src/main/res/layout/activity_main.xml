@@ -8,12 +8,54 @@
     android:background="@color/cardview_dark_background">
 
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/splash_image_2"
+        android:layout_width="282dp"
+        android:layout_height="272dp"
+        android:src="@drawable/github2"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/main_layout"
+        app:layout_constraintEnd_toEndOf="@+id/main_layout"
+        app:layout_constraintHorizontal_bias="0.608"
+        app:layout_constraintStart_toStartOf="@+id/main_layout"
+        app:layout_constraintTop_toTopOf="@+id/main_layout"
+        app:layout_constraintVertical_bias="0.498" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/splash_image"
+        android:layout_width="223dp"
+        android:layout_height="176dp"
+        android:src="@drawable/github"
+        app:layout_constraintBottom_toTopOf="@+id/welcome_message"
+        app:layout_constraintEnd_toEndOf="@+id/main_layout"
+        app:layout_constraintStart_toStartOf="@+id/main_layout"
+        app:layout_constraintTop_toTopOf="@+id/main_layout"
+        app:layout_constraintVertical_bias="0.877" />
+
+    <TextView
+        android:id="@+id/welcome_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center"
+        android:lineSpacingExtra="6sp"
+        android:text="@string/welcome_message"
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintBottom_toBottomOf="@+id/main_layout"
+        app:layout_constraintEnd_toEndOf="@+id/main_layout"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="@+id/main_layout"
+        app:layout_constraintTop_toTopOf="@+id/main_layout"
+        app:layout_constraintVertical_bias="0.648" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,7 +63,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/user_item" />
 
     <ProgressBar
@@ -31,7 +73,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.773" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

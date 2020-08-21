@@ -27,7 +27,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.android.synthetic.main.activity_favorites.*
-import kotlinx.android.synthetic.main.activity_main.progressBar
+import kotlinx.android.synthetic.main.activity_favorites.splash_image
+import kotlinx.android.synthetic.main.activity_favorites.welcome_message
+import kotlinx.android.synthetic.main.activity_favorites.progressBar
 
 
 class Favorites : AppCompatActivity() {
@@ -161,12 +163,22 @@ class Favorites : AppCompatActivity() {
                 MappingHelper.mapCursorToArrayList(cursor)
             }
             progressBar.visibility = View.INVISIBLE
+
+
             users = deferredNotes.await()
             if (users.size > 0) {
                 showRecyclerList()
+                welcome_message.visibility=View.INVISIBLE
+                splash_image.visibility=View.INVISIBLE
+                splash_image_2.alpha= 0.1F
+                splash_image_2.visibility=View.VISIBLE
             } else {
                 showRecyclerList()
+                splash_image_2.visibility=View.INVISIBLE
+                welcome_message.visibility=View.VISIBLE
+                splash_image.visibility=View.VISIBLE
                 showSnackbarMessage("No Favorites")
+
             }
         }
 

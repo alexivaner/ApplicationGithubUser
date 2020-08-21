@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var avatar: String
     private lateinit var url: String
     private var mSearchQuery: String? = null
-    private var defaultText = "github"
+    private var defaultText = ""
     private var users = arrayListOf<UserGithub>()
     lateinit var listGithubUser: MyAdapter
 
@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity() {
             MyAdapter(users)
         rvUser.adapter = listGithubUser
 
+        welcome_message.visibility=View.VISIBLE
 
         if (savedInstanceState == null) {
             prepare(defaultText)
@@ -165,6 +166,12 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     users.clear()
                     progressBar.visibility = View.INVISIBLE
+                    welcome_message.visibility=View.INVISIBLE
+                    splash_image.visibility=View.INVISIBLE
+                    splash_image_2.alpha= 0.1F
+                    splash_image_2.visibility=View.VISIBLE
+
+
                     val result = String(responseBody)
 
                     try {
@@ -209,7 +216,7 @@ class MainActivity : AppCompatActivity() {
                         401 -> "$statusCode : Bad Request"
                         403 -> "$statusCode : Forbidden"
                         404 -> "$statusCode : Not Found"
-                        422 -> "Default will return search github"
+                        422 -> "Search some users in search bar"
                         else -> "$statusCode : ${error.message}"
                     }
                     Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()

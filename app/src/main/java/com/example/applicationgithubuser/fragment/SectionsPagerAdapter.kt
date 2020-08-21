@@ -1,4 +1,4 @@
-package com.example.applicationgithubuser.PagerAdapter
+package com.example.applicationgithubuser.fragment
 
 import android.content.Context
 import androidx.annotation.Nullable

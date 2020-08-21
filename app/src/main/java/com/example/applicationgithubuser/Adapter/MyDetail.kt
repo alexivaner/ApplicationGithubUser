@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.applicationgithubuser.PagerAdapter.SectionsPagerAdapter
+import com.example.applicationgithubuser.fragment.SectionsPagerAdapter
 import com.example.applicationgithubuser.R
 import com.example.applicationgithubuser.db.DatabaseContract
 import com.example.applicationgithubuser.db.FavoritesHelper

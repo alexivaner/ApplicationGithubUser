@@ -17,6 +17,9 @@
     <string name="_2500350">2500350</string>
     <string name="todo">TODO</string>
     <string name="back_to_main_menu">Back to main menu</string>
+    <string name="welcome_message">Hi, Welcome to Application Github User Made by Ivan \n Please use search feature.</string>
+    <string name="dailyreminder">Set a Daily Reminder</string>
+    <string name="nofavorites">There is no favorites</string>
 
 
 </resources>

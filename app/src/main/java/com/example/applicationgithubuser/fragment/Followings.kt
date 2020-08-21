@@ -1,4 +1,4 @@
-package com.example.applicationgithubuser.PagerAdapter
+package com.example.applicationgithubuser.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -15,8 +15,8 @@ import com.example.applicationgithubuser.Adapter.UserGithub
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
-import kotlinx.android.synthetic.main.fragment_followers.*
 import kotlinx.android.synthetic.main.fragment_followers.progressBar
+import kotlinx.android.synthetic.main.fragment_followings.*
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -30,7 +30,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Followers.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Followers : Fragment() {
+class Followings : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -58,13 +58,13 @@ class Followers : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_followers, container, false)
+        return inflater.inflate(R.layout.fragment_followings, container, false)
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rvUser = followers_layout.findViewById(R.id.followers_layout)
+        rvUser = followings_layout.findViewById(R.id.followings_layout)
         rvUser.setHasFixedSize(true)
 
         val username= arguments?.getString(ARG_USERNAME)
@@ -82,7 +82,7 @@ class Followers : Fragment() {
         asyncClient.addHeader("Authorization", "token 2f94bde6f7c7fd89355467bc3eaa7d96f3808360")
         asyncClient.addHeader("User-Agent", "request")
         asyncClient.get(
-            "https://api.github.com/users/$newText/followers",
+            "https://api.github.com/users/$newText/following",
             object : AsyncHttpResponseHandler() {
 
                 override fun onSuccess(
@@ -158,9 +158,9 @@ class Followers : Fragment() {
         private val ARG_USERNAME="username"
         private lateinit var responseObject:JSONObject
 
-        fun newInstance(username: String?): Followers {
+        fun newInstance(username: String?): Followings {
             val fragment=
-                Followers()
+                Followings()
             val bundle=Bundle()
             bundle.putString(ARG_USERNAME,username)
             fragment.arguments=bundle
