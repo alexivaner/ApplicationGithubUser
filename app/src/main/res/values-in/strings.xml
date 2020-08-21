@@ -21,6 +21,11 @@
     <string name="welcome_message">Hi, Selamat datang di Aplikasi Gihub buatan Ivan \n Silahkan gunakan fitur search</string>
     <string name="dailyreminder">Atur pengingat harian</string>
     <string name="nofavorites">Masih tidak ada favorites</string>
+    <string name="favorites_delete_failed">Gagal menghapus favorite</string>
+    <string name="favorite_delete_success">Sudah menghapus favorite</string>
+    <string name="favorite_add_failed">Gagal menambah favorite</string>
+    <string name="favorite_add_success">Sudah menambah favorite</string>
+    <string name="no_favorites">Tidak ada favorite</string>
 
 
 </resources>

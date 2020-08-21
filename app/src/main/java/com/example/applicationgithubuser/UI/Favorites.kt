@@ -177,7 +177,7 @@ class Favorites : AppCompatActivity() {
                 splash_image_2.visibility=View.INVISIBLE
                 welcome_message.visibility=View.VISIBLE
                 splash_image.visibility=View.VISIBLE
-                showSnackbarMessage("No Favorites")
+                showSnackbarMessage(getString(R.string.no_favorites))
 
             }
         }

@@ -10,11 +10,14 @@ import com.example.applicationgithubuser.R
 import com.example.applicationgithubuser.db.DatabaseContract
 import com.example.applicationgithubuser.db.FavoritesHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.squareup.picasso.Picasso
 import cz.msebera.android.httpclient.Header
+import kotlinx.android.synthetic.main.activity_favorites.*
 import kotlinx.android.synthetic.main.detail.*
+import kotlinx.android.synthetic.main.detail.progressBar
 import org.json.JSONObject
 
 
@@ -86,20 +89,20 @@ class MyDetail : AppCompatActivity() {
                 val result = favoriteHelper.insert(values)
 
                 if (result > 0) {
-                    Toast.makeText(this@MyDetail, "Sudah menambah favorite", Toast.LENGTH_SHORT).show()
+                    showSnackbarMessage(getString(R.string.favorite_add_success))
 
                 } else {
-                    Toast.makeText(this@MyDetail, "Gagal menambah favoritr", Toast.LENGTH_SHORT).show()
+                    showSnackbarMessage(getString(R.string.favorite_add_failed))
 
                 }
             }else{
                 val delete = user.userid?.let { it1 -> favoriteHelper.deleteById(it1) }
                 if (delete != null) {
                     if (delete  > 0) {
-                        Toast.makeText(this@MyDetail, "Sudah menghapus dari favorite", Toast.LENGTH_SHORT).show()
+                        showSnackbarMessage(getString(R.string.favorite_delete_success))
 
                     } else {
-                        Toast.makeText(this@MyDetail, "Gagal menghapus dari favorite", Toast.LENGTH_SHORT).show()
+                        showSnackbarMessage(getString(R.string.favorites_delete_failed))
 
                     }
                 }
@@ -126,6 +129,9 @@ class MyDetail : AppCompatActivity() {
 
     }
 
+    private fun showSnackbarMessage(message: String) {
+        Snackbar.make(cardView, message, Snackbar.LENGTH_SHORT).show()
+    }
 
 
     private fun prepare(url: String) {
@@ -173,6 +179,7 @@ class MyDetail : AppCompatActivity() {
 
                 }
 
+
                 override fun onFailure(
                     statusCode: Int,
                     headers: Array<out Header>,
@@ -184,7 +191,6 @@ class MyDetail : AppCompatActivity() {
                         401 -> "$statusCode : Bad Request"
                         403 -> "$statusCode : Forbidden"
                         404 -> "$statusCode : Not Found"
-                        422 -> "Default will return my github alexivaner"
                         else -> "$statusCode : ${error.message}"
                     }
                     Toast.makeText(this@MyDetail, errorMessage, Toast.LENGTH_SHORT).show()
