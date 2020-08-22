@@ -1,4 +1,4 @@
-package com.example.applicationgithubuser.UI
+package com.example.applicationgithubuser.ui
 
 import android.app.SearchManager
 import android.content.Context
@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -21,10 +20,16 @@ import com.example.applicationgithubuser.adapter.UserGithub
 import com.example.applicationgithubuser.alarm.AlarmReceiver
 import com.example.applicationgithubuser.R
 import com.example.applicationgithubuser.alarm.UserPreference
+import com.google.android.material.snackbar.Snackbar
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
+import kotlinx.android.synthetic.main.activity_favorites.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.progressBar
+import kotlinx.android.synthetic.main.activity_main.splash_image
+import kotlinx.android.synthetic.main.activity_main.splash_image_2
+import kotlinx.android.synthetic.main.activity_main.welcome_message
 import org.json.JSONObject
 
 
@@ -40,9 +45,8 @@ class MainActivity : AppCompatActivity() {
     private var defaultText = ""
     private var users = arrayListOf<UserGithub>()
     lateinit var listGithubUser: MyAdapter
-    private var isReminder = false
+    private var isReminder = true
     private lateinit var alarmReceiver: AlarmReceiver
-    private val repeatTime = "09:00"
     private lateinit var mUserPreference: UserPreference
 
 
@@ -64,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (supportActionBar != null) {
-            (supportActionBar as ActionBar).title = "Github User"
+            (supportActionBar as ActionBar).title = getString(R.string.Status_Bar_Main)
         }
         mUserPreference = UserPreference(this)
 
@@ -115,7 +119,6 @@ class MainActivity : AppCompatActivity() {
              */
             override fun onQueryTextSubmit(query: String): Boolean {
                 mSearchQuery = query;
-                Toast.makeText(this@MainActivity, query, Toast.LENGTH_SHORT).show()
                 prepare(query)
                 return true
             }
@@ -171,13 +174,16 @@ class MainActivity : AppCompatActivity() {
                 isReminder = !item.isChecked
                 item.isChecked = isReminder
                 val repeatMessage = getString(R.string.reminder)
+                val repeatTime = "09:00"
 
                 /*
                 Set  shared preference
                 */
                 mUserPreference.setReminder(isReminder)
 
+                /* No repeating alarm */
                 if (isReminder) {
+
                     alarmReceiver.setRepeatingAlarm(
                         this,
                         AlarmReceiver.TYPE_REPEATING,
@@ -185,7 +191,7 @@ class MainActivity : AppCompatActivity() {
                         repeatMessage
                     )
                 } else {
-                    alarmReceiver.cancelAlarm(this, AlarmReceiver.TYPE_REPEATING)
+                    alarmReceiver.cancelAlarm(this)
                 }
             }
 
@@ -262,10 +268,10 @@ class MainActivity : AppCompatActivity() {
                         401 -> "$statusCode : Bad Request"
                         403 -> "$statusCode : Forbidden"
                         404 -> "$statusCode : Not Found"
-                        422 -> "Search some users in search bar"
+                        422 -> getString(R.string.search_user)
                         else -> "$statusCode : ${error.message}"
                     }
-                    Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
+                    showSnackbarMessage(errorMessage)
                 }
 
             })
@@ -279,6 +285,11 @@ class MainActivity : AppCompatActivity() {
         rvUser.adapter = listGithubUser
 
     }
+
+    private fun showSnackbarMessage(message: String) {
+        Snackbar.make(main_layout, message, Snackbar.LENGTH_SHORT).show()
+    }
+
 
 
 }

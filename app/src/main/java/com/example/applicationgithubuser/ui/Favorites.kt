@@ -1,4 +1,4 @@
-package com.example.applicationgithubuser.UI
+package com.example.applicationgithubuser.ui
 
 import android.app.SearchManager
 import android.content.Context

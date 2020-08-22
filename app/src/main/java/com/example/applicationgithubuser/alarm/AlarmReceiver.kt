@@ -10,13 +10,14 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.example.applicationgithubuser.R
+import com.example.applicationgithubuser.ui.MainActivity
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AlarmReceiver : BroadcastReceiver() {
     companion object {
-        const val TYPE_REPEATING = "RepeatingAlarm"
+        const val TYPE_REPEATING = "DailyGithub"
         const val EXTRA_MESSAGE = "message"
         const val EXTRA_TYPE = "type"
 
@@ -26,13 +27,11 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context, intent: Intent) {
-        val type = intent.getStringExtra(EXTRA_TYPE)
         val message = intent.getStringExtra(EXTRA_MESSAGE)
         val title = TYPE_REPEATING
         val notifId = ID_REPEATING
         showToast(context, title, message)
         showAlarmNotification(context, title, message, notifId)
-
     }
 
     private fun showToast(context: Context, title: String, message: String?) {
@@ -56,7 +55,7 @@ class AlarmReceiver : BroadcastReceiver() {
         Toast.makeText(context, context.getString(R.string.alarmsetup), Toast.LENGTH_SHORT).show()
     }
 
-    fun cancelAlarm(context: Context, type: String) {
+    fun cancelAlarm(context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
         val requestCode = ID_REPEATING
@@ -83,13 +82,17 @@ class AlarmReceiver : BroadcastReceiver() {
         message: String,
         notifId: Int
     ) {
+        val intent = Intent(context, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+
         val CHANNEL_ID = "Channel_1"
         val CHANNEL_NAME = "AlarmManager channel"
         val notificationManagerCompat =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.baseline_access_alarm_black_18dp)
+            .setContentIntent(pendingIntent)
+            .setSmallIcon(R.drawable.github)
             .setContentTitle(title)
             .setContentText(message)
             .setColor(ContextCompat.getColor(context, android.R.color.transparent))

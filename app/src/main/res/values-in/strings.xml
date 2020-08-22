@@ -29,6 +29,9 @@
     <string name="reminder">Selamat pagi, jangan lupa membuka aplikasi GitHub!</string>
     <string name="alarmsetup">Daily reminder sudah di aktifkan</string>
     <string name="repeating_alarm_cancel">Daily reminder sudah dibatalkan</string>
+    <string name="Status_Bar_Main">Pengguna Github</string>
+    <string name="splash_message">Aplikasi ini dibuat oleh \n Ivan Surya H</string>
+    <string name="search_user">Gunakan fitur search bar untuk mencari user</string>
 
 
 </resources>

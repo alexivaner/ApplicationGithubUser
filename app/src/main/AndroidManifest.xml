@@ -13,23 +13,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UI.Favorites"></activity>
         <activity
-            android:name=".adapter.MyDetail"
-            android:theme="@style/Detail" />
-        <activity
-            android:name=".UI.MainActivity">
+            android:name=".ui.SplashActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+
+        <activity android:name=".ui.Favorites" />
+        <activity
+            android:name=".adapter.MyDetail"
+            android:theme="@style/Detail" />
+        <activity android:name=".ui.MainActivity"></activity>
+
         <receiver
             android:name=".alarm.AlarmReceiver"
             android:enabled="true"
             android:exported="true" />
-
     </application>
 
 </manifest>

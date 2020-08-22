@@ -29,6 +29,9 @@
     <string name="reminder">Good Morning, Do not forget to open Github Application</string>
     <string name="alarmsetup">Daily reminder set up</string>
     <string name="repeating_alarm_cancel">Daily reminder Cancelled</string>
+    <string name="Status_Bar_Main">Github User</string>
+    <string name="splash_message">This GitHub Application is made by \nIvan Surya H</string>
+    <string name="search_user">Search some users in search bar</string>
 
 
 </resources>
