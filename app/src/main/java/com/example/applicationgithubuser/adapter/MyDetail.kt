@@ -1,6 +1,7 @@
 package com.example.applicationgithubuser.adapter
 
 import android.content.ContentValues
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.applicationgithubuser.fragment.SectionsPagerAdapter
 import com.example.applicationgithubuser.R
 import com.example.applicationgithubuser.db.DatabaseContract
+import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.CONTENT_URI
 import com.example.applicationgithubuser.db.FavoritesHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -23,6 +25,7 @@ import org.json.JSONObject
 class MyDetail : AppCompatActivity() {
     private lateinit var favoriteHelper: FavoritesHelper
     private var statusFavorite: Boolean = false
+    private lateinit var uriWithId: Uri
 
     companion object {
         const val EXTRA_USER = "extra_user"
@@ -66,14 +69,19 @@ class MyDetail : AppCompatActivity() {
         tabs.setupWithViewPager(view_pager)
         supportActionBar?.elevation = 0f
 
-        val cursor = favoriteHelper.querybyUserID(user.userid)
-        if(cursor.count <= 0){
-            cursor.close()
-            statusFavorite=false
-        }else{
-            statusFavorite=true
+
+        uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + user?.userid)
+        val cursor = contentResolver?.query(uriWithId, null, null, null, null)
+
+        if (cursor != null) {
+            statusFavorite = if(cursor.count <= 0){
+                cursor.close()
+                false
+            }else{
+                true
+            }
         }
-        cursor.close()
+        cursor?.close()
 
         setStatusFavorite(statusFavorite)
 
@@ -85,26 +93,14 @@ class MyDetail : AppCompatActivity() {
                 values.put(DatabaseContract.UserColumnns.COLUMN_NAME_AVATAR_URL, user.avatar)
                 values.put(DatabaseContract.UserColumnns.COLUMN_USER_URL, user.url)
                 values.put(DatabaseContract.UserColumnns.COLUMN_NAME_USER_ID, user.userid)
-                val result = favoriteHelper.insert(values)
+                uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + user?.userid)
+                contentResolver.insert(uriWithId, values)
+                showSnackbarMessage(getString(R.string.favorite_add_success))
 
-                if (result > 0) {
-                    showSnackbarMessage(getString(R.string.favorite_add_success))
-
-                } else {
-                    showSnackbarMessage(getString(R.string.favorite_add_failed))
-
-                }
             }else{
-                val delete = user.userid?.let { it1 -> favoriteHelper.deleteById(it1) }
-                if (delete != null) {
-                    if (delete  > 0) {
-                        showSnackbarMessage(getString(R.string.favorite_delete_success))
-
-                    } else {
-                        showSnackbarMessage(getString(R.string.favorites_delete_failed))
-
-                    }
-                }
+                uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + user?.userid)
+                contentResolver.delete(uriWithId, null, null)
+                showSnackbarMessage(getString(R.string.favorite_delete_success))
 
             }
 

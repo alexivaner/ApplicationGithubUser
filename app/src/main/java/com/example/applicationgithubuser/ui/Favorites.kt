@@ -3,8 +3,12 @@ package com.example.applicationgithubuser.ui
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.database.ContentObserver
+import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.HandlerThread
 import android.provider.Settings
 import android.util.Log
 import android.view.Menu
@@ -19,6 +23,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.applicationgithubuser.adapter.MyAdapter
 import com.example.applicationgithubuser.adapter.UserGithub
 import com.example.applicationgithubuser.R
+import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.COLUMN_NAME_USERNAME
+import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.CONTENT_URI
 import com.example.applicationgithubuser.db.FavoritesHelper
 import com.example.applicationgithubuser.helper.MappingHelper
 import com.google.android.material.snackbar.Snackbar
@@ -68,6 +74,18 @@ class Favorites : AppCompatActivity() {
         listGithubUser =
             MyAdapter(users)
         rvUser.adapter = listGithubUser
+
+        val handlerThread = HandlerThread("DataObserver")
+        handlerThread.start()
+        val handler = Handler(handlerThread.looper)
+
+        val myObserver = object : ContentObserver(handler) {
+            override fun onChange(self: Boolean) {
+                prepare(defaultText)
+            }
+        }
+
+        contentResolver.registerContentObserver(CONTENT_URI, true, myObserver)
 
 
         if (savedInstanceState == null) {
@@ -159,7 +177,13 @@ class Favorites : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.Main) {
             progressBar.visibility = View.VISIBLE
             val deferredNotes = async(Dispatchers.IO) {
-                val cursor = favoriteHelper.querybyUserName(newText)
+                var uriWithId = Uri.parse("$COLUMN_NAME_USERNAME/'%$newText%'")
+                uriWithId = if(uriWithId==null){
+                    CONTENT_URI
+                }else{
+                    uriWithId
+                }
+                val cursor = contentResolver?.query(CONTENT_URI, null, null, null, null)
                 MappingHelper.mapCursorToArrayList(cursor)
             }
             progressBar.visibility = View.INVISIBLE
