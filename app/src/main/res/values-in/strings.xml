@@ -26,6 +26,9 @@
     <string name="favorite_add_failed">Gagal menambah favorite</string>
     <string name="favorite_add_success">Sudah menambah favorite</string>
     <string name="no_favorites">Tidak ada favorite</string>
+    <string name="reminder">Selamat pagi, jangan lupa membuka aplikasi GitHub!</string>
+    <string name="alarmsetup">Daily reminder sudah di aktifkan</string>
+    <string name="repeating_alarm_cancel">Daily reminder sudah dibatalkan</string>
 
 
 </resources>

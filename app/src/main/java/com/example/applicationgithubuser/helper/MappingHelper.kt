@@ -1,7 +1,7 @@
 package com.example.applicationgithubuser.helper
 
 import android.database.Cursor
-import com.example.applicationgithubuser.Adapter.UserGithub
+import com.example.applicationgithubuser.adapter.UserGithub
 import com.example.applicationgithubuser.db.DatabaseContract
 import java.util.ArrayList
 

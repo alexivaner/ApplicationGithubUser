@@ -1,4 +1,4 @@
-package com.example.applicationgithubuser.Adapter
+package com.example.applicationgithubuser.adapter
 
 import android.os.Parcel
 import android.os.Parcelable

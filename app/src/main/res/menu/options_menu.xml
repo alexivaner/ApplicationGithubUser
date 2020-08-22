@@ -15,8 +15,10 @@
 
     <item
         android:id="@+id/daily_reminder_setting"
+        android:checkable="true"
         android:title="@string/dailyreminder"
         app:showAsAction="never"/>
+
 
     <item
         android:id="@+id/action_change_settings"
@@ -24,4 +26,6 @@
         android:icon="@drawable/baseline_star_white_18dp"
 
         app:showAsAction="collapseActionView|always" />
+
+
 </menu>

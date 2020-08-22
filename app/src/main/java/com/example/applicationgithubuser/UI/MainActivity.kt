@@ -16,8 +16,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.applicationgithubuser.Adapter.MyAdapter
-import com.example.applicationgithubuser.Adapter.UserGithub
+import com.example.applicationgithubuser.adapter.MyAdapter
+import com.example.applicationgithubuser.adapter.UserGithub
+import com.example.applicationgithubuser.alarm.AlarmReceiver
 import com.example.applicationgithubuser.R
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
@@ -38,6 +39,10 @@ class MainActivity : AppCompatActivity() {
     private var defaultText = ""
     private var users = arrayListOf<UserGithub>()
     lateinit var listGithubUser: MyAdapter
+    private var isChecked = false
+    private lateinit var alarmReceiver: AlarmReceiver
+    private val repeatTime = "13:36"
+
 
     companion object {
 
@@ -69,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         rvUser.adapter = listGithubUser
 
         welcome_message.visibility=View.VISIBLE
+        alarmReceiver = AlarmReceiver()
 
         if (savedInstanceState == null) {
             prepare(defaultText)
@@ -136,16 +142,39 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_change_language_settings) {
-            val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-            startActivity(mIntent)
-        }
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        val checkable = menu.findItem(R.id.daily_reminder_setting)
+        checkable.isChecked = isChecked
+        return true
+    }
 
-        if (item.itemId == R.id.action_change_settings) {
-            val moveIntent = Intent(this@MainActivity, Favorites::class.java)
-            startActivity(moveIntent)
-        }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.action_change_language_settings ->{
+                val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                startActivity(mIntent)
+            }
+            R.id.action_change_settings->{
+                val moveIntent = Intent(this@MainActivity, Favorites::class.java)
+                startActivity(moveIntent)
+            }
+
+            R.id.daily_reminder_setting -> {
+                isChecked = !item.isChecked
+                item.isChecked = isChecked
+                val repeatMessage = getString(R.string.reminder)
+
+                if(isChecked){
+                    alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_REPEATING, repeatTime, repeatMessage)
+                }else{
+                    alarmReceiver.cancelAlarm(this, AlarmReceiver.TYPE_REPEATING)
+                }
+            }
+
+
+          }
+
         return super.onOptionsItemSelected(item)
     }
 
@@ -166,10 +195,10 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     users.clear()
                     progressBar.visibility = View.INVISIBLE
-                    welcome_message.visibility=View.INVISIBLE
-                    splash_image.visibility=View.INVISIBLE
-                    splash_image_2.alpha= 0.1F
-                    splash_image_2.visibility=View.VISIBLE
+                    welcome_message.visibility = View.INVISIBLE
+                    splash_image.visibility = View.INVISIBLE
+                    splash_image_2.alpha = 0.1F
+                    splash_image_2.visibility = View.VISIBLE
 
 
                     val result = String(responseBody)

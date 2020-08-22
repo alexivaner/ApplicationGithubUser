@@ -1,4 +1,4 @@
-package com.example.applicationgithubuser.Adapter
+package com.example.applicationgithubuser.adapter
 
 import android.content.ContentValues
 import android.os.Bundle
@@ -15,7 +15,6 @@ import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.squareup.picasso.Picasso
 import cz.msebera.android.httpclient.Header
-import kotlinx.android.synthetic.main.activity_favorites.*
 import kotlinx.android.synthetic.main.detail.*
 import kotlinx.android.synthetic.main.detail.progressBar
 import org.json.JSONObject
@@ -33,7 +32,7 @@ class MyDetail : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail)
-        var fab = findViewById(R.id.fab) as FloatingActionButton
+        var fab = findViewById<FloatingActionButton>(R.id.fab)
 
         favoriteHelper = FavoritesHelper.getInstance(applicationContext)
         favoriteHelper.open()
@@ -68,13 +67,13 @@ class MyDetail : AppCompatActivity() {
         supportActionBar?.elevation = 0f
 
         val cursor = favoriteHelper.querybyUserID(user.userid)
-        if(cursor.getCount() <= 0){
-            cursor.close();
+        if(cursor.count <= 0){
+            cursor.close()
             statusFavorite=false
         }else{
             statusFavorite=true
         }
-        cursor.close();
+        cursor.close()
 
         setStatusFavorite(statusFavorite)
 

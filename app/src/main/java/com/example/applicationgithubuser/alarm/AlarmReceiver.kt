@@ -1,4 +1,4 @@
-package com.example.applicationgithubuser.Alarm
+package com.example.applicationgithubuser.alarm
 
 import android.app.*
 import android.content.BroadcastReceiver
@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -23,7 +22,6 @@ class AlarmReceiver : BroadcastReceiver() {
 
         private const val ID_REPEATING = 101
 
-        private const val DATE_FORMAT = "yyyy-MM-dd"
         private const val TIME_FORMAT = "HH:mm"
     }
 
@@ -55,7 +53,7 @@ class AlarmReceiver : BroadcastReceiver() {
         calendar.set(Calendar.SECOND, 0)
         val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0)
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
-        Toast.makeText(context, "Repeating alarm set up", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.alarmsetup), Toast.LENGTH_SHORT).show()
     }
 
     fun cancelAlarm(context: Context, type: String) {
@@ -65,7 +63,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0)
         pendingIntent.cancel()
         alarmManager.cancel(pendingIntent)
-        Toast.makeText(context, "Repeating alarm dibatalkan", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.repeating_alarm_cancel), Toast.LENGTH_SHORT).show()
     }
 
     private fun isDateInvalid(date: String, format: String): Boolean {

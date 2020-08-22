@@ -16,8 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.applicationgithubuser.Adapter.MyAdapter
-import com.example.applicationgithubuser.Adapter.UserGithub
+import com.example.applicationgithubuser.adapter.MyAdapter
+import com.example.applicationgithubuser.adapter.UserGithub
 import com.example.applicationgithubuser.R
 import com.example.applicationgithubuser.db.FavoritesHelper
 import com.example.applicationgithubuser.helper.MappingHelper

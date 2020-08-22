@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.applicationgithubuser.Adapter.MyAdapter
+import com.example.applicationgithubuser.adapter.MyAdapter
 import com.example.applicationgithubuser.R
-import com.example.applicationgithubuser.Adapter.UserGithub
+import com.example.applicationgithubuser.adapter.UserGithub
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header

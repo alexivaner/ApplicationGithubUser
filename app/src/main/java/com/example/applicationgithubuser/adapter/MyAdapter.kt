@@ -1,4 +1,4 @@
-package com.example.applicationgithubuser.Adapter
+package com.example.applicationgithubuser.adapter
 
 import android.content.Context
 import android.content.Intent
