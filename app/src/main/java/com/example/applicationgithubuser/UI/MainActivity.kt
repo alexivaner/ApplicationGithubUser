@@ -20,6 +20,7 @@ import com.example.applicationgithubuser.adapter.MyAdapter
 import com.example.applicationgithubuser.adapter.UserGithub
 import com.example.applicationgithubuser.alarm.AlarmReceiver
 import com.example.applicationgithubuser.R
+import com.example.applicationgithubuser.alarm.UserPreference
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -39,9 +40,10 @@ class MainActivity : AppCompatActivity() {
     private var defaultText = ""
     private var users = arrayListOf<UserGithub>()
     lateinit var listGithubUser: MyAdapter
-    private var isChecked = false
+    private var isReminder = false
     private lateinit var alarmReceiver: AlarmReceiver
-    private val repeatTime = "13:36"
+    private val repeatTime = "09:00"
+    private lateinit var mUserPreference: UserPreference
 
 
     companion object {
@@ -64,7 +66,12 @@ class MainActivity : AppCompatActivity() {
         if (supportActionBar != null) {
             (supportActionBar as ActionBar).title = "Github User"
         }
+        mUserPreference = UserPreference(this)
 
+        /*
+        Get  shared preference
+        */
+        isReminder = mUserPreference.getReminder()
 
         rvUser = findViewById(R.id.main_layout)
         rvUser.setHasFixedSize(true)
@@ -73,7 +80,7 @@ class MainActivity : AppCompatActivity() {
             MyAdapter(users)
         rvUser.adapter = listGithubUser
 
-        welcome_message.visibility=View.VISIBLE
+        welcome_message.visibility = View.VISIBLE
         alarmReceiver = AlarmReceiver()
 
         if (savedInstanceState == null) {
@@ -144,36 +151,46 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         val checkable = menu.findItem(R.id.daily_reminder_setting)
-        checkable.isChecked = isChecked
+        checkable.isChecked = isReminder
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-            R.id.action_change_language_settings ->{
+            R.id.action_change_language_settings -> {
                 val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
                 startActivity(mIntent)
             }
-            R.id.action_change_settings->{
+            R.id.action_change_settings -> {
                 val moveIntent = Intent(this@MainActivity, Favorites::class.java)
                 startActivity(moveIntent)
             }
 
             R.id.daily_reminder_setting -> {
-                isChecked = !item.isChecked
-                item.isChecked = isChecked
+                isReminder = !item.isChecked
+                item.isChecked = isReminder
                 val repeatMessage = getString(R.string.reminder)
 
-                if(isChecked){
-                    alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_REPEATING, repeatTime, repeatMessage)
-                }else{
+                /*
+                Set  shared preference
+                */
+                mUserPreference.setReminder(isReminder)
+
+                if (isReminder) {
+                    alarmReceiver.setRepeatingAlarm(
+                        this,
+                        AlarmReceiver.TYPE_REPEATING,
+                        repeatTime,
+                        repeatMessage
+                    )
+                } else {
                     alarmReceiver.cancelAlarm(this, AlarmReceiver.TYPE_REPEATING)
                 }
             }
 
 
-          }
+        }
 
         return super.onOptionsItemSelected(item)
     }
@@ -262,7 +279,6 @@ class MainActivity : AppCompatActivity() {
         rvUser.adapter = listGithubUser
 
     }
-
 
 
 }
