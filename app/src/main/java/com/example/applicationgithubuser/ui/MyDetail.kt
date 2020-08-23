@@ -91,11 +91,15 @@ class MyDetail : AppCompatActivity() {
                 values.put(DatabaseContract.UserColumnns.COLUMN_NAME_USER_ID, user.userid)
                 uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + user.userid)
                 contentResolver.insert(uriWithId, values)
+                contentResolver?.notifyChange(CONTENT_URI, null)
+
                 showSnackbarMessage(getString(R.string.favorite_add_success))
 
             }else{
                 uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + user.userid)
                 contentResolver.delete(uriWithId, null, null)
+                contentResolver?.notifyChange(CONTENT_URI, null)
+
                 showSnackbarMessage(getString(R.string.favorite_delete_success))
 
             }

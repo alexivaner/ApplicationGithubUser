@@ -42,14 +42,15 @@ class GithubProvider : ContentProvider() {
         strings1: Array<String>?,
         s1: String?
     ): Cursor? {
-        val cursor: Cursor?
-        when (sUriMatcher.match(uri)) {
-            USER -> cursor = favoritesHelper.querybyUserName()
-            USER_ID -> cursor = favoritesHelper.querybyUserID(uri.lastPathSegment.toString())
-            else -> cursor = null
+
+        return when (sUriMatcher.match(uri)) {
+            USER -> favoritesHelper.querybyUserName()
+            USER_ID -> favoritesHelper.querybyUserID(uri.lastPathSegment.toString())
+            else -> null
         }
 
-        return cursor
+        context?.contentResolver?.notifyChange(CONTENT_URI, null)
+
     }
 
     override fun getType(uri: Uri): String? {
@@ -62,6 +63,9 @@ class GithubProvider : ContentProvider() {
             else -> 0
         }
         return Uri.parse("$CONTENT_URI/$added")
+
+        context?.contentResolver?.notifyChange(CONTENT_URI, null)
+
     }
 
 
@@ -84,6 +88,7 @@ class GithubProvider : ContentProvider() {
         selectionArgs: Array<out String>?
     ): Int {
         TODO("Not yet implemented")
+
     }
 
 
