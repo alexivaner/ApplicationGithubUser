@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">GithubConsumerApp</string>
+    <string name="app_name">Github Consumer App</string>
+
+
+    <string name="nofavorites">There is no favorites</string>
+    <string name="no_favorites">No Favorites</string>
+    <string name="consumer_app_statusbar">Consumer App Favorites</string>
+
+
 </resources>

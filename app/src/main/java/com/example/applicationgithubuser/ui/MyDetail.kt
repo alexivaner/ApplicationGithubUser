@@ -1,4 +1,4 @@
-package com.example.applicationgithubuser.adapter
+package com.example.applicationgithubuser.ui
 
 import android.content.ContentValues
 import android.net.Uri
@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.applicationgithubuser.fragment.SectionsPagerAdapter
 import com.example.applicationgithubuser.R
+import com.example.applicationgithubuser.adapter.UserGithub
 import com.example.applicationgithubuser.db.DatabaseContract
 import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.CONTENT_URI
 import com.example.applicationgithubuser.db.FavoritesHelper

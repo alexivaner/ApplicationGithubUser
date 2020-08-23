@@ -1,18 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/cardview_dark_background">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/splash_image_2"
+        android:layout_width="292dp"
+        android:layout_height="281dp"
+        android:src="@drawable/octocat"
+        app:layout_constraintBottom_toBottomOf="@+id/favorites_layout"
+        app:layout_constraintEnd_toEndOf="@+id/favorites_layout"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="@+id/favorites_layout"
+        app:layout_constraintTop_toTopOf="@+id/favorites_layout" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/splash_image"
+        android:layout_width="223dp"
+        android:layout_height="176dp"
+        android:src="@drawable/github3"
+        app:layout_constraintBottom_toTopOf="@+id/welcome_message"
+        app:layout_constraintEnd_toEndOf="@+id/favorites_layout"
+        app:layout_constraintStart_toStartOf="@+id/favorites_layout"
+        app:layout_constraintTop_toTopOf="@+id/favorites_layout"
+        app:layout_constraintVertical_bias="0.872" />
 
     <TextView
+        android:id="@+id/welcome_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center"
+        android:lineSpacingExtra="6sp"
+        android:text="@string/nofavorites"
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintBottom_toBottomOf="@+id/favorites_layout"
+        app:layout_constraintEnd_toEndOf="@+id/favorites_layout"
+        app:layout_constraintStart_toStartOf="@+id/favorites_layout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.648" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favorites_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/user_item" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.756" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+

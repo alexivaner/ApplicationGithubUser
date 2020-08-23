@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
             Gunakan method ini ketika search selesai atau OK
              */
             override fun onQueryTextSubmit(query: String): Boolean {
-                mSearchQuery = query;
+                mSearchQuery = query
                 prepare(query)
                 return true
             }
@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
             Gunakan method ini untuk merespon tiap perubahan huruf pada searchView
              */
             override fun onQueryTextChange(newText: String): Boolean {
-                mSearchQuery = newText;
+                mSearchQuery = newText
                 counter?.cancel()
                 counter = object : CountDownTimer(waitingTime.toLong(), 500) {
                     override fun onTick(millisUntilFinished: Long) {

@@ -22,9 +22,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.applicationgithubuser.R
 import com.example.applicationgithubuser.adapter.MyAdapter
 import com.example.applicationgithubuser.adapter.UserGithub
-import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.COLUMN_NAME_AVATAR_URL
-import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.COLUMN_NAME_USERNAME
-import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.COLUMN_NAME_USER_ID
 import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.CONTENT_URI
 import com.example.applicationgithubuser.db.FavoritesHelper
 import com.example.applicationgithubuser.helper.MappingHelper
@@ -123,13 +120,13 @@ class Favorites : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                mSearchQuery = query;
+                mSearchQuery = query
                 Toast.makeText(this@Favorites, query, Toast.LENGTH_SHORT).show()
                 return true
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                mSearchQuery = newText;
+                mSearchQuery = newText
                 counter?.cancel()
                 counter = object : CountDownTimer(waitingTime.toLong(), 20) {
                     override fun onTick(millisUntilFinished: Long) {

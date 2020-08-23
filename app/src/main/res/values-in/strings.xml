@@ -3,7 +3,6 @@
     <string name="app_name">ApplicationGithubUser</string>
     <string name="user_name">username</string>
     <string name="full_name">nama lengkap</string>
-    <string name="name">nama</string>
     <string name="location">lokasi</string>
     <string name="company">perusahaan</string>
     <string name="search">pencarian</string>
@@ -21,9 +20,7 @@
     <string name="welcome_message">Hi, Selamat datang di Aplikasi Gihub buatan Ivan \n Silahkan gunakan fitur search</string>
     <string name="dailyreminder">Atur pengingat harian</string>
     <string name="nofavorites">Masih tidak ada favorites</string>
-    <string name="favorites_delete_failed">Gagal menghapus favorite</string>
     <string name="favorite_delete_success">Sudah menghapus favorite</string>
-    <string name="favorite_add_failed">Gagal menambah favorite</string>
     <string name="favorite_add_success">Sudah menambah favorite</string>
     <string name="no_favorites">Tidak ada favorite</string>
     <string name="reminder">Selamat pagi, jangan lupa membuka aplikasi GitHub!</string>

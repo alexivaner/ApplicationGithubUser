@@ -1,4 +1,4 @@
-package com.example.applicationgithubuser.adapter
+package com.example.githubconsumerapp.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -9,8 +9,7 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.applicationgithubuser.R
-import com.example.applicationgithubuser.ui.MyDetail
+import com.example.githubconsumerapp.R
 import kotlin.collections.ArrayList
 
 
@@ -46,12 +45,7 @@ class MyAdapter(private val listData: ArrayList<UserGithub>) :
         holder.tvUsername.text = user.username
         holder.tvUserid.text = user.userid
 
-        holder.itemView.setOnClickListener {
-            Toast.makeText(context, user.username, Toast.LENGTH_SHORT).show()
-            val moveWithIntent = Intent(context, MyDetail::class.java)
-            moveWithIntent.putExtra(MyDetail.EXTRA_USER, user)
-            context.startActivity(moveWithIntent)
-        }
+
     }
 
     override fun getItemCount(): Int {
@@ -59,7 +53,7 @@ class MyAdapter(private val listData: ArrayList<UserGithub>) :
     }
 
 
-    inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvUsername: TextView = itemView.findViewById(R.id.username)
         var tvUserid: TextView = itemView.findViewById(R.id.userid)
         var tvavatar: ImageView = itemView.findViewById(R.id.avatar)
