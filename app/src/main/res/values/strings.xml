@@ -29,7 +29,6 @@
     <string name="splash_message">This GitHub Application is made by \n Ivan Surya H</string>
     <string name="search_user">Search some users in search bar</string>
     <string name="appwidget_text">Favorites</string>
-    <string name="add_widget">Add widget</string>
     <string name="empty_text">No Favorites</string>
 
 </resources>

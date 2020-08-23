@@ -31,6 +31,5 @@
     <string name="search_user">Gunakan fitur search bar untuk mencari user</string>
 
     <string name="appwidget_text">Favorit</string>
-    <string name="add_widget">Tambah Widget</string>
     <string name="empty_text">Tidak ada favorite</string>
 </resources>

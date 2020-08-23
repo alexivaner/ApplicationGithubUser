@@ -52,9 +52,9 @@ internal class StackRemoteViewsFactory(private val mContext: Context) :
         return try {
             val url = URL(src)
             val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
-            connection.setDoInput(true)
+            connection.doInput = true
             connection.connect()
-            val input: InputStream = connection.getInputStream()
+            val input: InputStream = connection.inputStream
             BitmapFactory.decodeStream(input)
         } catch (e: IOException) {
             // Log exception

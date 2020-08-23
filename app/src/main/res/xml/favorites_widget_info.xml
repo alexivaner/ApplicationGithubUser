@@ -4,6 +4,6 @@
     android:initialLayout="@layout/favorites_widget"
     android:minWidth="250dp"
     android:minHeight="110dp"
-    android:previewImage="@drawable/example_appwidget_preview"
+    android:previewImage="@drawable/github"
     android:updatePeriodMillis="0"
     android:widgetCategory="home_screen"></appwidget-provider>
