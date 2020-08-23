@@ -24,7 +24,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
-import kotlinx.android.synthetic.main.activity_favorites.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.progressBar
 import kotlinx.android.synthetic.main.activity_main.splash_image
@@ -35,8 +34,8 @@ import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
     private lateinit var rvUser: RecyclerView
-    private val waitingTime = 500
-    private var cntr: CountDownTimer? = null
+    private val waitingTime = 150
+    private var counter: CountDownTimer? = null
     private lateinit var userName: String
     private lateinit var userId: String
     private lateinit var avatar: String
@@ -128,8 +127,8 @@ class MainActivity : AppCompatActivity() {
              */
             override fun onQueryTextChange(newText: String): Boolean {
                 mSearchQuery = newText;
-                cntr?.cancel()
-                cntr = object : CountDownTimer(waitingTime.toLong(), 500) {
+                counter?.cancel()
+                counter = object : CountDownTimer(waitingTime.toLong(), 500) {
                     override fun onTick(millisUntilFinished: Long) {
                         Log.d(
                             "TIME",
@@ -145,7 +144,7 @@ class MainActivity : AppCompatActivity() {
                         prepare(newText)
                     }
                 }
-                (cntr as CountDownTimer).start()
+                (counter as CountDownTimer).start()
                 return false
             }
         })

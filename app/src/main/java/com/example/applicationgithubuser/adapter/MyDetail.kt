@@ -70,16 +70,11 @@ class MyDetail : AppCompatActivity() {
         supportActionBar?.elevation = 0f
 
 
-        uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + user?.userid)
+        uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + user.userid)
         val cursor = contentResolver?.query(uriWithId, null, null, null, null)
 
         if (cursor != null) {
-            statusFavorite = if(cursor.count <= 0){
-                cursor.close()
-                false
-            }else{
-                true
-            }
+            statusFavorite = cursor.count > 0
         }
         cursor?.close()
 
@@ -93,12 +88,12 @@ class MyDetail : AppCompatActivity() {
                 values.put(DatabaseContract.UserColumnns.COLUMN_NAME_AVATAR_URL, user.avatar)
                 values.put(DatabaseContract.UserColumnns.COLUMN_USER_URL, user.url)
                 values.put(DatabaseContract.UserColumnns.COLUMN_NAME_USER_ID, user.userid)
-                uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + user?.userid)
+                uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + user.userid)
                 contentResolver.insert(uriWithId, values)
                 showSnackbarMessage(getString(R.string.favorite_add_success))
 
             }else{
-                uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + user?.userid)
+                uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + user.userid)
                 contentResolver.delete(uriWithId, null, null)
                 showSnackbarMessage(getString(R.string.favorite_delete_success))
 

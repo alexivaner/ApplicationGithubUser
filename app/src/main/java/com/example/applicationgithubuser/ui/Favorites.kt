@@ -4,7 +4,6 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.database.ContentObserver
-import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -20,37 +19,34 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.applicationgithubuser.R
 import com.example.applicationgithubuser.adapter.MyAdapter
 import com.example.applicationgithubuser.adapter.UserGithub
-import com.example.applicationgithubuser.R
+import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.COLUMN_NAME_AVATAR_URL
 import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.COLUMN_NAME_USERNAME
+import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.COLUMN_NAME_USER_ID
 import com.example.applicationgithubuser.db.DatabaseContract.UserColumnns.Companion.CONTENT_URI
 import com.example.applicationgithubuser.db.FavoritesHelper
 import com.example.applicationgithubuser.helper.MappingHelper
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_favorites.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.android.synthetic.main.activity_favorites.*
-import kotlinx.android.synthetic.main.activity_favorites.splash_image
-import kotlinx.android.synthetic.main.activity_favorites.welcome_message
-import kotlinx.android.synthetic.main.activity_favorites.progressBar
 
 
 class Favorites : AppCompatActivity() {
     private lateinit var rvUser: RecyclerView
-    private val waitingTime = 500
-    private var cntr: CountDownTimer? = null
+    private val waitingTime = 50
+    private var counter: CountDownTimer? = null
     private var mSearchQuery: String? = null
     private var defaultText = ""
     private var users = arrayListOf<UserGithub>()
-    lateinit var listGithubUser: MyAdapter
+    private lateinit var listGithubUser: MyAdapter
     private lateinit var favoriteHelper: FavoritesHelper
 
     companion object {
-
-        private val TAG = MainActivity::class.java.simpleName
         private const val STATE_RESULT = "state_result"
 
 
@@ -125,22 +121,17 @@ class Favorites : AppCompatActivity() {
 
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            /*
-            Gunakan method ini ketika search selesai atau OK
-             */
+
             override fun onQueryTextSubmit(query: String): Boolean {
                 mSearchQuery = query;
                 Toast.makeText(this@Favorites, query, Toast.LENGTH_SHORT).show()
                 return true
             }
 
-            /*
-            Gunakan method ini untuk merespon tiap perubahan huruf pada searchView
-             */
             override fun onQueryTextChange(newText: String): Boolean {
                 mSearchQuery = newText;
-                cntr?.cancel()
-                cntr = object : CountDownTimer(waitingTime.toLong(), 20) {
+                counter?.cancel()
+                counter = object : CountDownTimer(waitingTime.toLong(), 20) {
                     override fun onTick(millisUntilFinished: Long) {
                         Log.d(
                             "TIME",
@@ -153,7 +144,7 @@ class Favorites : AppCompatActivity() {
                         prepare(newText)
                     }
                 }
-                (cntr as CountDownTimer).start()
+                (counter as CountDownTimer).start()
                 return false
             }
         })
@@ -177,17 +168,11 @@ class Favorites : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.Main) {
             progressBar.visibility = View.VISIBLE
             val deferredNotes = async(Dispatchers.IO) {
-                var uriWithId = Uri.parse("$COLUMN_NAME_USERNAME/'%$newText%'")
-                uriWithId = if(uriWithId==null){
-                    CONTENT_URI
-                }else{
-                    uriWithId
-                }
-                val cursor = contentResolver?.query(CONTENT_URI, null, null, null, null)
+                val cursor = favoriteHelper.querybyUserName(newText)
                 MappingHelper.mapCursorToArrayList(cursor)
+
             }
             progressBar.visibility = View.INVISIBLE
-
 
             users = deferredNotes.await()
             if (users.size > 0) {
@@ -201,7 +186,7 @@ class Favorites : AppCompatActivity() {
                 splash_image_2.visibility=View.INVISIBLE
                 welcome_message.visibility=View.VISIBLE
                 splash_image.visibility=View.VISIBLE
-                showSnackbarMessage(getString(R.string.no_favorites))
+                showSnackMessage(getString(R.string.no_favorites))
 
             }
         }
@@ -209,7 +194,7 @@ class Favorites : AppCompatActivity() {
 
     }
 
-    private fun showSnackbarMessage(message: String) {
+    private fun showSnackMessage(message: String) {
         Snackbar.make(favorites_layout, message, Snackbar.LENGTH_SHORT).show()
     }
 
