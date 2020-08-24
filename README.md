@@ -1,7 +1,7 @@
 # ApplicationGithubUser
  This is Android application for see Github followers and followings using Github API
  
-Added Features:<br>
+<strong>Added Features:</strong><br>
 Add to favorites,<br>
 Provide data using Content Provider and provide the consumer app to see the favorites,<br>
 Add widget,<br>
