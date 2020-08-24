@@ -7,13 +7,14 @@ Provide data using Content Provider and provide the consumer app to see the favo
 Add widget,<br>
 Improve UI,<br>
 Localization Language <br>
+
  
 ## Main App
-<img src="https://github.com/alexivaner/ApplicationGithubUser/blob/master/Screenshot/Screenshot_20200823_164452_com.example.applicationgithubuser.jpg" width="250"/>
-<img src="https://github.com/alexivaner/ApplicationGithubUser/blob/master/Screenshot/Screenshot_20200823_164414_com.example.applicationgithubuser.jpg" width="250"/>
-<img src="https://github.com/alexivaner/ApplicationGithubUser/blob/master/Screenshot/Screenshot_20200823_164518_com.example.applicationgithubuser.jpg" width="250"/>
-<img src="https://github.com/alexivaner/ApplicationGithubUser/blob/master/Screenshot/Screenshot_20200823_164537_com.example.applicationgithubuser.jpg" width="250"/>
-<img src="https://github.com/alexivaner/ApplicationGithubUser/blob/master/Screenshot/Screenshot_20200823_164541_com.example.applicationgithubuser.jpg" width="250"/>
+
+Screenshot App             | Screenshot App            |  Screenshot App
+:-------------------------:|:-------------------------:|:-------------------------:
+<img src="https://github.com/alexivaner/ApplicationGithubUser/blob/master/Screenshot/Screenshot_20200823_164452_com.example.applicationgithubuser.jpg" width="250"/>|<img src="https://github.com/alexivaner/ApplicationGithubUser/blob/master/Screenshot/Screenshot_20200823_164414_com.example.applicationgithubuser.jpg" width="250"/>|<img src="https://github.com/alexivaner/ApplicationGithubUser/blob/master/Screenshot/Screenshot_20200823_164518_com.example.applicationgithubuser.jpg" width="250"/>
+<img src="https://github.com/alexivaner/ApplicationGithubUser/blob/master/Screenshot/Screenshot_20200823_164537_com.example.applicationgithubuser.jpg" width="250"/>|<img src="https://github.com/alexivaner/ApplicationGithubUser/blob/master/Screenshot/Screenshot_20200823_164541_com.example.applicationgithubuser.jpg" width="250"/>|
 
 ## Widget
 <img src="https://github.com/alexivaner/ApplicationGithubUser/blob/master/Screenshot/Screenshot_20200823_164600_com.huawei.android.launcher.jpg" width="250"/>
