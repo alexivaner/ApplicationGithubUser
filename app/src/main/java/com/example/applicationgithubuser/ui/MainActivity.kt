@@ -19,7 +19,6 @@ import com.example.applicationgithubuser.adapter.MyAdapter
 import com.example.applicationgithubuser.adapter.UserGithub
 import com.example.applicationgithubuser.alarm.AlarmReceiver
 import com.example.applicationgithubuser.R
-import com.example.applicationgithubuser.alarm.UserPreference
 import com.google.android.material.snackbar.Snackbar
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
@@ -44,9 +43,6 @@ class MainActivity : AppCompatActivity() {
     private var defaultText = ""
     private var users = arrayListOf<UserGithub>()
     lateinit var listGithubUser: MyAdapter
-    private var isReminder = true
-    private lateinit var alarmReceiver: AlarmReceiver
-    private lateinit var mUserPreference: UserPreference
 
 
     companion object {
@@ -69,12 +65,6 @@ class MainActivity : AppCompatActivity() {
         if (supportActionBar != null) {
             (supportActionBar as ActionBar).title = getString(R.string.Status_Bar_Main)
         }
-        mUserPreference = UserPreference(this)
-
-        /*
-        Get  shared preference
-        */
-        isReminder = mUserPreference.getReminder()
 
         rvUser = findViewById(R.id.main_layout)
         rvUser.setHasFixedSize(true)
@@ -84,7 +74,6 @@ class MainActivity : AppCompatActivity() {
         rvUser.adapter = listGithubUser
 
         welcome_message.visibility = View.VISIBLE
-        alarmReceiver = AlarmReceiver()
 
         if (savedInstanceState == null) {
             prepare(defaultText)
@@ -152,8 +141,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        val checkable = menu.findItem(R.id.daily_reminder_setting)
-        checkable.isChecked = isReminder
         return true
     }
 
@@ -169,29 +156,10 @@ class MainActivity : AppCompatActivity() {
                 startActivity(moveIntent)
             }
 
-            R.id.daily_reminder_setting -> {
-                isReminder = !item.isChecked
-                item.isChecked = isReminder
-                val repeatMessage = getString(R.string.reminder)
-                val repeatTime = "09:00"
+            R.id.advanced_setting -> {
+                val SettingIntent = Intent(this@MainActivity, SettingsActivity::class.java)
+                startActivity(SettingIntent)
 
-                /*
-                Set  shared preference
-                */
-                mUserPreference.setReminder(isReminder)
-
-                /* No repeating alarm */
-                if (isReminder) {
-
-                    alarmReceiver.setRepeatingAlarm(
-                        this,
-                        AlarmReceiver.TYPE_REPEATING,
-                        repeatTime,
-                        repeatMessage
-                    )
-                } else {
-                    alarmReceiver.cancelAlarm(this)
-                }
             }
 
 
@@ -288,7 +256,6 @@ class MainActivity : AppCompatActivity() {
     private fun showSnackbarMessage(message: String) {
         Snackbar.make(main_layout, message, Snackbar.LENGTH_SHORT).show()
     }
-
 
 
 }

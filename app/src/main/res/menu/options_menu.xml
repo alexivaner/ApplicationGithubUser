@@ -14,9 +14,8 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/daily_reminder_setting"
-        android:checkable="true"
-        android:title="@string/dailyreminder"
+        android:id="@+id/advanced_setting"
+        android:title="@string/advanced_setting"
         app:showAsAction="never"/>
 
 

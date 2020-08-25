@@ -32,4 +32,19 @@
 
     <string name="appwidget_text">Favorit</string>
     <string name="empty_text">Tidak ada favorite</string>
+    <string name="attachment_title">Daily Reminder</string>
+
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+
+    <!-- Messages Preferences -->
+
+    <!-- Sync Preferences -->
+
+    <string name="attachment_summary_on">Matikan daily reminder pukul 9 pagi</string>
+    <string name="attachment_summary_off">Nyalakan daily reminder pukul 9 pagi</string>
+    <string name="advanced_setting">Pengaturan lanjutan</string>
+    <string name="reminded">reminded</string>
+
 </resources>
